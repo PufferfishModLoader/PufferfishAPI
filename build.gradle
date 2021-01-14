@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+    dependencies {
+        classpath 'com.github.PufferfishModLoader:PufferfishGradle:3.0.0-rc3'
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'me.dreamhopping.pml.gradle'
+
+group 'me.dreamhopping'
+version '1.0.0'
+
+minecraft {
+    target('1.16.4') {
+        yarn()
+        accessTransformer 'src/mc1.16.4/resources/net.minecraft.client.MinecraftClient.transformer.json'
+    }
+    target('1.15.2') {
+        yarn()
+        accessTransformer 'src/mc1.15.2/resources/net.minecraft.client.MinecraftClient.transformer.json'
+    }
+
+    target '1.14.4', '1.13.2', '1.12', '1.11', '1.10.2', '1.9.4', '1.8.9'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    // use the experimental branch until it's merged into master
+    loader('com.github.PufferfishModLoader:PufferfishModLoader:88653fdb4e')
+
+    implementation('org.apache.logging.log4j:log4j-core:2.13.2')
+}
