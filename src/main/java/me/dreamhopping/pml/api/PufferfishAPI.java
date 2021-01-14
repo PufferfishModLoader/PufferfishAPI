@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 @Mod("pufferfishapi")
 public class PufferfishAPI {
     private static final Logger LOGGER = LogManager.getLogger("PufferfishAPI");
-    private PufferfishAPIProvider provider;
 
     public PufferfishAPI() {
         EventBus.INSTANCE.register(this);
@@ -22,7 +21,7 @@ public class PufferfishAPI {
         LOGGER.info("Waking up PufferfishAPIProvider");
 
         try {
-            Class.forName("me.dreamhopping.pml.api.impl.PufferfishAPIProviderImpl", true, this.getClass().getClassLoader());
+            Class.forName("me.dreamhopping.pml.api.provider.impl.PufferfishAPIProviderImpl", true, this.getClass().getClassLoader());
         } catch (ClassNotFoundException e) {
             System.err.println("PufferfishAPIProviderImpl doesn't want to wake up... They seemed pretty angry... This is what they said to me:");
             e.printStackTrace();

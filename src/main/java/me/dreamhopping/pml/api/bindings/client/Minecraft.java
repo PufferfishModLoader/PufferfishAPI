@@ -3,6 +3,7 @@ package me.dreamhopping.pml.api.bindings.client;
 import me.dreamhopping.pml.api.bindings.client.gui.FontRenderer;
 import me.dreamhopping.pml.mods.core.MCVersion;
 
+import java.io.File;
 import java.util.Map;
 
 public abstract class Minecraft {
@@ -26,6 +27,8 @@ public abstract class Minecraft {
     public abstract int getFPS();
 
     public abstract Map<String, String> getSessionInfo();
+
+    public abstract File getMinecraftDirectory();
 
     public FontRenderer getFontRenderer() {
         return FontRenderer.getInstance();
