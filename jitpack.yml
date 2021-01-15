@@ -1,0 +1,4 @@
+jdk:
+  - openjdk9
+before_install:
+  - ./gradlew setup

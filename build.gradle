@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.github.PufferfishModLoader:PufferfishGradle:3.0.0-rc3'
+        classpath 'com.github.PufferfishModLoader:PufferfishGradle:5d37ee4'
     }
 }
 
@@ -41,7 +41,7 @@ repositories {
 
 dependencies {
     // use the experimental branch until it's merged into master
-    loader('com.github.PufferfishModLoader:PufferfishModLoader:88653fdb4e')
+    loader('com.github.PufferfishModLoader:PufferfishModLoader:49a0b1d')
 
     implementation('org.apache.logging.log4j:log4j-core:2.13.2')
 }
