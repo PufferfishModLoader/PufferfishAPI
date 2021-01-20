@@ -1,6 +1,5 @@
 {
   "net/minecraft/client/MinecraftClient": {
-    "access": "keep",
     "fields": {
       "currentFps": "public"
     }
