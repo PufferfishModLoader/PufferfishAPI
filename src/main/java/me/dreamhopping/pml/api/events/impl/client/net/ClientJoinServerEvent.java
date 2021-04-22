@@ -1,6 +1,6 @@
 package me.dreamhopping.pml.api.events.impl.client.net;
 
-import me.dreamhopping.pml.events.Event;
+import me.dreamhopping.pml.api.events.Event;
 
 import java.net.SocketAddress;
 

@@ -1,24 +1,18 @@
 package me.dreamhopping.pml.api;
 
 import me.dreamhopping.pml.api.provider.PufferfishAPIProvider;
-import me.dreamhopping.pml.events.EventBus;
-import me.dreamhopping.pml.events.InvokeEvent;
-import me.dreamhopping.pml.events.impl.GameStartEvent;
-import me.dreamhopping.pml.mods.core.Mod;
+import me.dreamhopping.pml.mods.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("pufferfishapi")
-public class PufferfishAPI {
-    private static final Logger LOGGER = LogManager.getLogger("PufferfishAPI");
-    private PufferfishAPIProvider provider;
+public class PufferfishAPI extends Mod {
+    public static final Logger LOGGER = LogManager.getLogger("PufferfishAPI");
 
     public PufferfishAPI() {
-        EventBus.INSTANCE.register(this);
+        super("pufferfishapi");
     }
 
-    @InvokeEvent
-    public void onGameStart(GameStartEvent event) {
+    public void initialize() {
         LOGGER.info("Waking up PufferfishAPIProvider");
 
         try {

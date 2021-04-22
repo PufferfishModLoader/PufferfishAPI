@@ -1,16 +1,16 @@
 package me.dreamhopping.pml.api.transformers;
 
+import me.dreamhopping.pml.launch.transformer.ClassTransformer;
 import me.dreamhopping.pml.api.util.TransformerUtils;
-import me.dreamhopping.pml.mods.launch.loader.RuntimeTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
-public class ClientPlayerEntityTransformer implements RuntimeTransformer {
+public class ClientPlayerEntityTransformer implements ClassTransformer {
     public boolean willTransform(String name) {
         return name.equals("net/minecraft/client/network/ClientPlayerEntity");
     }
 
-    public ClassNode transform(ClassNode classNode) {
+    public ClassNode transformClass(ClassNode classNode) {
         for (MethodNode methodNode : classNode.methods) {
             switch (methodNode.name) {
                 case "sendChatMessage": {

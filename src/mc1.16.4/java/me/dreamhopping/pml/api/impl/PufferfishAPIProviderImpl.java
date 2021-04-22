@@ -9,7 +9,7 @@ import me.dreamhopping.pml.api.transformers.ClientPlayNetworkHandlerTransformer;
 import me.dreamhopping.pml.api.transformers.ClientPlayerEntityTransformer;
 import me.dreamhopping.pml.api.transformers.InGameHudTransformer;
 import me.dreamhopping.pml.api.transformers.MinecraftClientTransformer;
-import me.dreamhopping.pml.mods.launch.loader.TransformingClassLoader;
+import me.dreamhopping.pml.launch.loader.PMLClassLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,11 +29,11 @@ public class PufferfishAPIProviderImpl extends PufferfishAPIProvider {
     public void applyTransformers() {
         LOGGER.info("Applying transformers");
 
-        TransformingClassLoader classLoader = (TransformingClassLoader) Thread.currentThread().getContextClassLoader();
-        classLoader.registerTransformer(new ClientPlayerEntityTransformer());
-        classLoader.registerTransformer(new ClientPlayNetworkHandlerTransformer());
-        classLoader.registerTransformer(new InGameHudTransformer());
-        classLoader.registerTransformer(new MinecraftClientTransformer());
+        PMLClassLoader classLoader = (PMLClassLoader) Thread.currentThread().getContextClassLoader();
+        classLoader.addTransformer(new ClientPlayerEntityTransformer());
+        classLoader.addTransformer(new ClientPlayNetworkHandlerTransformer());
+        classLoader.addTransformer(new InGameHudTransformer());
+        classLoader.addTransformer(new MinecraftClientTransformer());
     }
 
     public void applyBindings() {

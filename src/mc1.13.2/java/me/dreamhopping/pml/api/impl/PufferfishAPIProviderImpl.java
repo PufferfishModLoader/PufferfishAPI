@@ -6,7 +6,7 @@ import me.dreamhopping.pml.api.impl.minecraft.FontRendererImpl;
 import me.dreamhopping.pml.api.impl.minecraft.MinecraftImpl;
 import me.dreamhopping.pml.api.provider.PufferfishAPIProvider;
 import me.dreamhopping.pml.api.transformers.*;
-import me.dreamhopping.pml.mods.launch.loader.TransformingClassLoader;
+import me.dreamhopping.pml.launch.loader.PMLClassLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,13 +26,13 @@ public class PufferfishAPIProviderImpl extends PufferfishAPIProvider {
     public void applyTransformers() {
         LOGGER.info("Applying transformers");
 
-        TransformingClassLoader classLoader = (TransformingClassLoader) Thread.currentThread().getContextClassLoader();
-        classLoader.registerTransformer(new MainWindowTransformer());
-        classLoader.registerTransformer(new GuiIngameTransformer());
-        classLoader.registerTransformer(new GuiNewChatTransformer());
-        classLoader.registerTransformer(new EntityPlayerSPTransformer());
-        classLoader.registerTransformer(new NetHandlerPlayClientTransformer());
-        classLoader.registerTransformer(new MinecraftTransformer());
+        PMLClassLoader classLoader = (PMLClassLoader) Thread.currentThread().getContextClassLoader();
+        classLoader.addTransformer(new MainWindowTransformer());
+        classLoader.addTransformer(new GuiIngameTransformer());
+        classLoader.addTransformer(new GuiNewChatTransformer());
+        classLoader.addTransformer(new EntityPlayerSPTransformer());
+        classLoader.addTransformer(new NetHandlerPlayClientTransformer());
+        classLoader.addTransformer(new MinecraftTransformer());
     }
 
     public void applyBindings() {

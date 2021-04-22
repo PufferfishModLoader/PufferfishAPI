@@ -1,6 +1,6 @@
 package me.dreamhopping.pml.api.events.impl.client.chat;
 
-import me.dreamhopping.pml.events.Event;
+import me.dreamhopping.pml.api.events.Event;
 
 /**
  * Called when a chat message is sent by the client

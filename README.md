@@ -3,7 +3,10 @@
 </p>
 
 ## The powerful modding API for [PufferfishModLoader](https://github.com/PufferfishModLoader/PufferfishModLoader)
-This API provides features like an EventBus, Injector (ASM simplifier) and Minecraft Binding Classes to PufferfishModLoader. It is not required, but recommended.
+This API provides an EventBus, Binding Classes and more to PufferfishModLoader. It is *not* required that you use it, but it is *highly recommended*.
+
+### Credits
+- We would like to thank [Hyperium](https://github.com/HyperiumClient/Hyperium) for making their EventBus open source and licensed under LGPL-3. This is used in our project under the LGPL-3 license conditions.
 
 ### Special Thanks - YourKit
 <img src="https://www.yourkit.com/images/yklogo.png">

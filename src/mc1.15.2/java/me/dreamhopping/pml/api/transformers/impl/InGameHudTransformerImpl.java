@@ -1,8 +1,8 @@
 package me.dreamhopping.pml.api.transformers.impl;
 
+import me.dreamhopping.pml.api.events.bus.EventBus;
 import me.dreamhopping.pml.api.events.impl.client.chat.ClientChatReceivedEvent;
 import me.dreamhopping.pml.api.events.impl.client.gui.ClientRenderGameOverlayEvent;
-import me.dreamhopping.pml.events.EventBus;
 import me.dreamhopping.pml.api.transformers.InGameHudTransformer;
 import net.minecraft.text.Text;
 

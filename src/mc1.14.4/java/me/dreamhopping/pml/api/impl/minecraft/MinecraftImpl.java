@@ -30,7 +30,7 @@ public class MinecraftImpl extends Minecraft {
         Map<String, String> sessionInfo = Maps.newHashMap();
         sessionInfo.put("X-Minecraft-Username", session.getUsername());
         sessionInfo.put("X-Minecraft-UUID", session.getProfile().getId().toString());
-        sessionInfo.put("X-Minecraft-Version", getVersion().version);
+        sessionInfo.put("X-Minecraft-Version", getVersion().getVersion());
         return sessionInfo;
     }
 }

@@ -1,6 +1,6 @@
 package me.dreamhopping.pml.api.events.impl.client.player;
 
-import me.dreamhopping.pml.events.Event;
+import me.dreamhopping.pml.api.events.Event;
 
 /**
  * Called when the player clicks the respawn button

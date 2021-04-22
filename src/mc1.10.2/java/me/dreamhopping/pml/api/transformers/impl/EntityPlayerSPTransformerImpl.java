@@ -1,9 +1,9 @@
 package me.dreamhopping.pml.api.transformers.impl;
 
+import me.dreamhopping.pml.api.events.bus.EventBus;
 import me.dreamhopping.pml.api.events.impl.client.chat.ClientChatSentEvent;
 import me.dreamhopping.pml.api.events.impl.client.player.ClientItemDropEvent;
 import me.dreamhopping.pml.api.events.impl.client.player.ClientPlayerRespawnEvent;
-import me.dreamhopping.pml.events.EventBus;
 
 /**
  * An implementation for the EntityPlayerSPTransformer class

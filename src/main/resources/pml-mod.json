@@ -1,0 +1,8 @@
+{
+  "mods": [
+    {
+      "id": "pufferfishapi",
+      "class": "me.dreamhopping.pml.api.PufferfishAPI"
+    }
+  ]
+}
