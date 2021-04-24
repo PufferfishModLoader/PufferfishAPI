@@ -18,6 +18,7 @@
 package me.dreamhopping.pml.api.events.bus;
 
 import com.google.common.base.Preconditions;
+import me.dreamhopping.pml.launch.loader.PMLClassLoader;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -31,7 +32,6 @@ import static org.objectweb.asm.Opcodes.*;
  * Used to store information about events and index them so they can be easily accessed by ASM
  */
 public final class EventSubscriber {
-    private static final AsmClassLoader LOADER = new AsmClassLoader();
     private static int ID = 0;
     @NotNull
     private final Object instance;
@@ -138,7 +138,7 @@ public final class EventSubscriber {
         String desc = name.replace(".", "/");
         String instanceClassName = instance.getClass().getName().replace(".", "/");
 
-        cw.visit(V1_6, ACC_PUBLIC | ACC_SUPER, desc, null, "java/lang/Object", new String[]{"me/dreamhopping/pml/events/EventSubscriber$EventHandler"});
+        cw.visit(V1_6, ACC_PUBLIC | ACC_SUPER, desc, null, "java/lang/Object", new String[]{"me/dreamhopping/pml/api/events/bus/EventSubscriber$EventHandler"});
 
         cw.visitSource(".dynamic", null);
         {
@@ -172,20 +172,10 @@ public final class EventSubscriber {
         cw.visitEnd();
 
         byte[] handlerClassBytes = cw.toByteArray();
-        return LOADER.define(name, handlerClassBytes);
+        return ((PMLClassLoader) getClass().getClassLoader()).defineClass(name, handlerClassBytes);
     }
 
     public interface EventHandler {
         void handle(Object event);
-    }
-
-    private static class AsmClassLoader extends ClassLoader {
-        private AsmClassLoader() {
-            super(AsmClassLoader.class.getClassLoader());
-        }
-
-        public Class<?> define(String name, byte[] data) {
-            return defineClass(name, data, 0, data.length);
-        }
     }
 }
