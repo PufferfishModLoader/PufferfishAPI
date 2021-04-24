@@ -3,6 +3,10 @@
     {
       "id": "pufferfishapi",
       "class": "me.dreamhopping.pml.api.PufferfishAPI"
+    },
+    {
+      "id": "test",
+      "class": "me.dreamhopping.pml.api.test.PAPITestMod"
     }
   ]
 }

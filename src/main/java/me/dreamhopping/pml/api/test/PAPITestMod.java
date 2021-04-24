@@ -17,19 +17,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.net.InetSocketAddress;
 
-public class TestMod extends Mod {
-    public final Logger logger = LogManager.getLogger("TestMod");
+public class PAPITestMod implements Mod {
+    public final Logger logger = LogManager.getLogger("PAPITestMod");
     private Minecraft mc;
 
-    public TestMod() {
-        super("bruh");
+    public void initialize() {
         EventBus.INSTANCE.register(this);
+
+        logger.info("Hello world! PAPITestMod is now awake");
+        mc = Minecraft.getInstance();
     }
 
-    @Override
-    public void initialize() {
-        logger.info("Hello world! TestMod is now awake");
-        mc = Minecraft.getInstance();
+    public void unload() {
+
     }
 
     @EventListener
