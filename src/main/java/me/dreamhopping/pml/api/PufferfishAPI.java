@@ -5,12 +5,8 @@ import me.dreamhopping.pml.mods.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PufferfishAPI extends Mod {
+public class PufferfishAPI implements Mod {
     public static final Logger LOGGER = LogManager.getLogger("PufferfishAPI");
-
-    public PufferfishAPI() {
-        super("pufferfishapi");
-    }
 
     public void initialize() {
         LOGGER.info("Waking up PufferfishAPIProvider");
