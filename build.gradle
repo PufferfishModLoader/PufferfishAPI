@@ -1,46 +1,48 @@
 buildscript {
+    ext.kotlin_version = "1.4.32"
+
     repositories {
         mavenCentral()
         maven {
-            url 'https://jitpack.io'
+            url "https://jitpack.io"
         }
     }
+
     dependencies {
-        classpath 'com.github.PufferfishModLoader:PufferfishGradle:4b858ba'
+        classpath "com.github.PufferfishModLoader:PufferfishGradle:4b858ba"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-plugins {
-    id 'java'
-}
+apply plugin: "java"
+apply plugin: "me.dreamhopping.pml.gradle"
+apply plugin: "kotlin"
 
-apply plugin: 'me.dreamhopping.pml.gradle'
-
-group 'me.dreamhopping'
-version '1.0.0'
+group "me.dreamhopping"
+version "1.0.0"
 
 minecraft {
     clientRunClass = "me.dreamhopping.pml.launch.PMLClientMain"
     serverRunClass = "me.dreamhopping.pml.launch.PMLServerMain"
 
-    target('1.16.4') {
+    target("1.16.4") {
         yarn()
-        accessTransformer 'src/mc1.16.4/resources/net.minecraft.client.MinecraftClient.transformer.json'
+        accessTransformer "src/mc1.16.4/resources/net.minecraft.client.MinecraftClient.transformer.json"
     }
 
-    target('1.15.2') {
+    target("1.15.2") {
         yarn()
-        accessTransformer 'src/mc1.15.2/resources/net.minecraft.client.MinecraftClient.transformer.json'
+        accessTransformer "src/mc1.15.2/resources/net.minecraft.client.MinecraftClient.transformer.json"
     }
 
-    target '1.14.4', '1.13.2', '1.12', '1.11', '1.10.2', '1.9.4', '1.8.9'
+    target "1.14.4", "1.13.2", "1.12", "1.11", "1.10.2", "1.9.4", "1.8.9"
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url 'https://jitpack.io'
+        url "https://jitpack.io"
     }
 }
 
@@ -53,11 +55,26 @@ sourceSets {
 }
 
 dependencies {
-    // use the rewrite branch until it's merged into master
-    loader('com.github.PufferfishModLoader:PufferfishModLoader:1b41eecae1')
+    // use the rewrite branch until it"s merged into master
+    loader("com.github.PufferfishModLoader:PufferfishModLoader:1b41eecae1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 
-    provided('org.apache.logging.log4j:log4j-core:2.0-beta9')
-    provided('com.google.guava:guava:17.0')
+    provided("org.apache.logging.log4j:log4j-core:2.0-beta9")
+    provided("com.google.guava:guava:17.0")
 
-    implementation('org.jetbrains:annotations:19.0.0')
+    implementation("org.jetbrains:annotations:19.0.0")
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-Xjvm-default=enable"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-Xjvm-default=enable"
+    }
 }

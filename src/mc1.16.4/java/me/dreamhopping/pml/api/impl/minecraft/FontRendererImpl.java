@@ -8,7 +8,7 @@ import net.minecraft.text.StringVisitable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FontRendererImpl extends FontRenderer {
+public class FontRendererImpl implements FontRenderer {
     public int drawString(String text, float x, float y, int color, boolean drawShadow) {
         if (!drawShadow) {
             return MinecraftClient.getInstance().textRenderer.draw(new MatrixStack(), text, x, y, color);

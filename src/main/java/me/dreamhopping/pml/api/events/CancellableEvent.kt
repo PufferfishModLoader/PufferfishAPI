@@ -14,21 +14,12 @@
  *       You should have received a copy of the GNU Lesser General Public License
  *       along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package me.dreamhopping.pml.api.events;
+package me.dreamhopping.pml.api.events
 
 /**
  * A class which represents a cancellable event
- * If isCancelled is true, any further execution will end
+ * If [isCancelled] is true, any further execution will end
  */
-public class CancellableEvent extends Event {
-    private boolean isCancelled;
-
-    public boolean isCancelled() {
-        return isCancelled;
-    }
-
-    public void setCancelled(boolean isCancelled) {
-        this.isCancelled = isCancelled;
-    }
+class CancellableEvent : Event() {
+    var isCancelled = false
 }

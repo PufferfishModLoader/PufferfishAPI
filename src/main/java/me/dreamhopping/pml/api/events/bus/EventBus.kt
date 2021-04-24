@@ -14,68 +14,55 @@
  *       You should have received a copy of the GNU Lesser General Public License
  *       along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package me.dreamhopping.pml.api.events.bus
 
-package me.dreamhopping.pml.api.events.bus;
+import com.google.common.reflect.TypeToken
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.function.Consumer
 
-import com.google.common.reflect.TypeToken;
-
-import java.lang.reflect.Method;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-@SuppressWarnings("UnstableApiUsage")
-public class EventBus {
-    public static final EventBus INSTANCE = new EventBus();
-    private final HashMap<Class<?>, CopyOnWriteArrayList<EventSubscriber>> subscriptions = new HashMap<>();
+class EventBus {
+    private val subscriptions = HashMap<Class<*>, CopyOnWriteArrayList<EventSubscriber>>()
 
     /**
      * Registers all methods of a class into the event system with
-     * the {@link package me.dreamhopping.pufferfishmodloader.events.EventListener} annotation
+     * the [EventListener] annotation
      *
      * @param obj An instance of the class which you would like to register as an event
      * @see EventListener
      */
-    public void register(Object obj) {
+    fun register(obj: Any) {
         // also contains the class itself
-        TypeToken<?> token = TypeToken.of(obj.getClass());
-
-        Set superClasses = token.getTypes().rawTypes();
+        val token: TypeToken<*> = TypeToken.of(obj.javaClass)
+        val superClasses: Set<*> = token.types.rawTypes()
 
         // we also want to loop over the super classes, since declaredMethods only gets method in the class itself
-        for (Object temp : superClasses) {
-            Class<?> clazz = (Class<?>) temp;
+        for (temp in superClasses) {
+            val clazz = temp as Class<*>
 
             // iterates though all the methods in the class
-            for (Method method : clazz.getDeclaredMethods()) {
+            for (method in clazz.declaredMethods) {
                 // all the information and error checking before the method is added such
                 // as if it even is an event before the element even touches the HashMap
-                if (method.getAnnotation(EventListener.class) == null) {
-                    continue;
+                if (method.getAnnotation(EventListener::class.java) == null) {
+                    continue
                 }
-
-                if (method.getParameters()[0] == null) {
-                    throw new IllegalArgumentException("Couldn't find parameter inside of " + method.getName() + "!");
-                }
-
-                Class<?> event = method.getParameters()[0].getType();
-
-                EventPriority priority = method.getAnnotation(EventListener.class).priority();
-                method.setAccessible(true);
+                requireNotNull(method.parameters[0]) { "Couldn't find parameter inside of " + method.name + "!" }
+                val event = method.parameters[0].type
+                val priority: EventPriority = method.getAnnotation(EventListener::class.java).priority
+                method.isAccessible = true
 
                 // where the method gets added to the event key inside of the subscription hashmap
                 // the arraylist is either sorted or created before the element is added
                 if (subscriptions.containsKey(event)) {
                     // sorts array on insertion
-                    subscriptions.get(event).add(new EventSubscriber(obj, method, priority));
-                    subscriptions.get(event).sort(Comparator.comparingInt(a -> a.getPriority().getPriority()));
+                    subscriptions[event]?.add(EventSubscriber(obj, method, priority))
+                    subscriptions[event]?.sortBy { it.priority.priority }
                 } else {
                     // event hasn't been added before so it creates a new instance
                     // sorting does not matter here since there is no other elements to compete against
-                    subscriptions.put(event, new CopyOnWriteArrayList<>());
-                    subscriptions.get(event).add(new EventSubscriber(obj, method, priority));
-                    subscriptions.get(event).sort(Comparator.comparingInt(a -> a.getPriority().getPriority()));
+                    subscriptions[event] = CopyOnWriteArrayList()
+                    subscriptions[event]?.add(EventSubscriber(obj, method, priority))
+                    subscriptions[event]?.sortBy { it.priority.priority }
                 }
             }
         }
@@ -83,24 +70,23 @@ public class EventBus {
 
     /**
      * Unregisters all methods of the class instance from the event system
-     * inside of {@link #subscriptions}
+     * inside of [.subscriptions]
      *
      * @param obj An instance of the class which you would like to register as an event
      */
-    public void unregister(Object obj) {
-        subscriptions.values().forEach(map -> map.removeIf(it -> it.getInstance() == obj));
+    fun unregister(obj: Any) {
+        subscriptions.values.forEach(Consumer { map: CopyOnWriteArrayList<EventSubscriber> -> map.removeIf { it: EventSubscriber -> it.instance === obj } })
     }
 
     /**
      * Unregisters all methods of the class from the event system
-     * inside of {@link #subscriptions}
+     * inside of [.subscriptions]
      *
      * @param clazz An instance of the class which you would like to register as an event
      */
-    public void unregister(Class<?> clazz) {
-        subscriptions.values().forEach(map -> map.removeIf(it -> it.getInstance().getClass() == clazz));
+    fun unregister(clazz: Class<*>) {
+        subscriptions.values.forEach(Consumer { map: CopyOnWriteArrayList<EventSubscriber> -> map.removeIf { it: EventSubscriber -> it.instance.javaClass == clazz } })
     }
-
 
     /**
      * Invokes all of the methods which are inside of the classes
@@ -108,16 +94,22 @@ public class EventBus {
      *
      * @param event Event that is being posted
      */
-    public void post(Object event) {
+    fun post(event: Any?) {
         if (event == null) {
-            return;
+            return
         }
-        subscriptions.getOrDefault(event.getClass(), new CopyOnWriteArrayList<>()).forEach((sub) -> {
-            try {
-                sub.invoke(event);
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        });
+        subscriptions.getOrDefault(event.javaClass, CopyOnWriteArrayList()).forEach(
+            Consumer { sub: EventSubscriber ->
+                try {
+                    sub.invoke(event)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            })
+    }
+
+    companion object {
+        @JvmField
+        val INSTANCE = EventBus()
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.util.Session;
 
 import java.util.Map;
 
-public class MinecraftImpl extends Minecraft {
+public class MinecraftImpl implements Minecraft {
     @Override
     public MCVersion getVersion() {
         return MCVersion.V1_10_2;
@@ -21,7 +21,7 @@ public class MinecraftImpl extends Minecraft {
         return net.minecraft.client.Minecraft.getMinecraft().isGamePaused();
     }
 
-    public int getFPS() {
+    public int getFps() {
         return net.minecraft.client.Minecraft.getDebugFPS();
     }
 

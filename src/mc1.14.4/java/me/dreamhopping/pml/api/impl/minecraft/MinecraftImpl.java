@@ -7,7 +7,7 @@ import net.minecraft.client.util.Session;
 
 import java.util.Map;
 
-public class MinecraftImpl extends Minecraft {
+public class MinecraftImpl implements Minecraft {
     public MCVersion getVersion() {
         return MCVersion.V1_14_4;
     }
@@ -20,7 +20,7 @@ public class MinecraftImpl extends Minecraft {
         return net.minecraft.client.MinecraftClient.getInstance().isPaused();
     }
 
-    public int getFPS() {
+    public int getFps() {
         return net.minecraft.client.MinecraftClient.getCurrentFps();
     }
 

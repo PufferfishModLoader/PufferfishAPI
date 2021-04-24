@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.List;
 
-public class FontRendererImpl extends FontRenderer {
+public class FontRendererImpl implements FontRenderer {
     public int drawString(String text, int x, int y, int color) {
         return Minecraft.getMinecraft().fontRenderer.drawString(text, x, y, color);
     }

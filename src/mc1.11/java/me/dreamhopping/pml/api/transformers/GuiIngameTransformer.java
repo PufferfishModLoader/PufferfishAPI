@@ -1,7 +1,7 @@
 package me.dreamhopping.pml.api.transformers;
 
-import me.dreamhopping.pml.launch.transformer.ClassTransformer;
 import me.dreamhopping.pml.api.util.TransformerUtils;
+import me.dreamhopping.pml.launch.transformer.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
