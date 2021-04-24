@@ -44,10 +44,20 @@ repositories {
     }
 }
 
+configurations {
+    provided
+}
+
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
 dependencies {
     // use the rewrite branch until it's merged into master
     loader('com.github.PufferfishModLoader:PufferfishModLoader:edabc9cb6c')
 
-    compileOnly('com.google.guava:guava:17.0')
+    provided('org.apache.logging.log4j:log4j-core:2.0-beta9')
+    provided('com.google.guava:guava:17.0')
+
     implementation('org.jetbrains:annotations:19.0.0')
 }
